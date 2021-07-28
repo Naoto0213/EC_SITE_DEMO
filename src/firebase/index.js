@@ -1,4 +1,8 @@
 import firebase from "firebase";
+import "firebase/auth";
+import "firebase/firestore";
+import "firebase/storage";
+import "firebase/functions";
 
 const env = process.env;
 
@@ -13,10 +17,9 @@ export const firebaseConfig = {
   measurementId: env.REACT_APP_MEASUREMENT_ID,
 };
 
-// Firebaseを紐付け、初期化
 export const firebaseApp = firebase.initializeApp(firebaseConfig);
-
-// Firestoreのインスタンス作成
 export const firebaseStore = firebaseApp.firestore();
-
-export default firebase;
+export const db = firebase.firestore();
+export const storage = firebase.storage();
+export const functions = firebase.functions();
+export const FirebaseTimeStamp = firebase.Timestamp;

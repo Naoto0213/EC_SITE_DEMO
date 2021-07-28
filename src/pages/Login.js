@@ -1,10 +1,8 @@
-import { push } from "connected-react-router";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { SimpleButton } from "../components/SimpleButton";
 import { makeStyles } from "@material-ui/core";
 import { useSelector } from "react-redux";
-import { signInAction } from "../redux/users/actions";
 import { signIn } from "../redux/users/operation";
 
 const useStyles = makeStyles({
