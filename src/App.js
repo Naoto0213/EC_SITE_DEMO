@@ -1,5 +1,4 @@
 import { useSelector } from "react-redux";
-import "./App.css";
 import Router from "./router/Router";
 
 function App() {
