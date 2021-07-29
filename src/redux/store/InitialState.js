@@ -4,6 +4,7 @@ const initialState = {
     html_url: "",
     uid: "",
     username: "",
+    store: "",
   },
   prodacts: {},
 };

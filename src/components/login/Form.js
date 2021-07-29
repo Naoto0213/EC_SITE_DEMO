@@ -63,16 +63,6 @@ const Form = () => {
 
   const SIGN_UP = [
     {
-      label: "ユーザー名",
-      fullWidth: true,
-      value: username,
-      onChange: inputUsername,
-      multiline: false,
-      required: false,
-      rows: 1,
-      type: "username",
-    },
-    {
       label: "メールアドレス",
       fullWidth: true,
       value: email,
@@ -87,16 +77,6 @@ const Form = () => {
       fullWidth: true,
       value: password,
       onChange: inputPassword,
-      multiline: false,
-      required: false,
-      rows: 1,
-      type: "password",
-    },
-    {
-      label: "パスワード(再確認)",
-      fullWidth: true,
-      value: confirmPassword,
-      onChange: inputConfirmPassword,
       multiline: false,
       required: false,
       rows: 1,
@@ -125,10 +105,8 @@ const Form = () => {
         })}
         <div className={classes.ButtonContainer}>
           <CustomSimpleButton
-            label="アカウントを作成する"
-            onClick={() =>
-              dispatch(signIn(username, email, password, confirmPassword))
-            }
+            label="ログインする"
+            onClick={() => dispatch(signIn(email, password))}
           />
         </div>
       </form>

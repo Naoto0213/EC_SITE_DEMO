@@ -1,37 +1,6 @@
 import { push } from "connected-react-router";
 import { auth, db, FirebaseTimeStamp } from "../../firebase";
 import { signInAction } from "./actions";
-
-export const signIn = () => {
-  return async (dispatch, getState) => {
-    const state = getState();
-    const isSignedIn = state.users.isSignedIn;
-
-    if (!isSignedIn) {
-      const url = "https://api.github.com/users/Naoto0213";
-
-      const response = await fetch(url)
-        .then((res) => res.json())
-        .catch(() => null);
-
-      const username = response.login;
-      const html_url = response.html_url;
-      const uid = response.id;
-
-      dispatch(
-        signInAction({
-          isSignedIn: true,
-          uid: uid,
-          username: username,
-          html_url: html_url,
-        })
-      );
-      dispatch(push("/"));
-      console.log(response.html_url);
-    }
-  };
-};
-
 export const signUp = (username, email, password, confirmPassword) => {
   return async (dispatch) => {
     if (
@@ -71,5 +40,37 @@ export const signUp = (username, email, password, confirmPassword) => {
             });
         }
       });
+  };
+};
+
+export const signIn = (email, password) => {
+  return async (dispatch) => {
+    if (email === "" || password === "") {
+      alert("必須項目があります。");
+      return false;
+    }
+    return auth.signInWithEmailAndPassword(email, password).then((result) => {
+      const user = result.user;
+      if (user) {
+        const uid = user.uid;
+        const timestamp = FirebaseTimeStamp.now();
+
+        db.collection("users")
+          .doc(uid)
+          .get()
+          .then((snapshot) => {
+            const data = snapshot.data();
+            dispatch(
+              signInAction({
+                isSignedIn: true,
+                uid: uid,
+                role: data.role,
+                username: data.username,
+              })
+            );
+            dispatch(push("/"));
+          });
+      }
+    });
   };
 };
