@@ -7,7 +7,7 @@ import {
   Typography,
   Container,
 } from "@material-ui/core";
-import Form from "../components/login/Form";
+import Form from "../components/signin/Form";
 import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Login() {
+export default function Signin() {
   const classes = useStyles();
 
   return (

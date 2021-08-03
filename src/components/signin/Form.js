@@ -28,17 +28,8 @@ const useStyles = makeStyles((theme) => ({
 const Form = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
-  const [username, setUsername] = useState(""),
-    [email, setEmail] = useState(""),
-    [password, setPassword] = useState(""),
-    [confirmPassword, setConfirmPassword] = useState("");
-
-  const inputUsername = useCallback(
-    (event) => {
-      setUsername(event.target.value);
-    },
-    [setUsername]
-  );
+  const [email, setEmail] = useState(""),
+    [password, setPassword] = useState("");
 
   const inputEmail = useCallback(
     (event) => {
@@ -52,13 +43,6 @@ const Form = () => {
       setPassword(event.target.value);
     },
     [setPassword]
-  );
-
-  const inputConfirmPassword = useCallback(
-    (event) => {
-      setConfirmPassword(event.target.value);
-    },
-    [setConfirmPassword]
   );
 
   const SIGN_UP = [

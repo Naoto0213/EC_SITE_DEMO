@@ -50,7 +50,7 @@ export default function SignUp() {
           アカウント作成
         </Typography>
         <Form />
-        <Link to="/login" className={classes.Link}>
+        <Link to="/signin" className={classes.Link}>
           <Typography variant="body1" color="initial" align="center">
             アカウントをお持ちの方はこちら
           </Typography>

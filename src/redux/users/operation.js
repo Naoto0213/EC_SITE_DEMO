@@ -1,6 +1,34 @@
 import { push } from "connected-react-router";
 import { auth, db, FirebaseTimeStamp } from "../../firebase";
-import { signInAction } from "./actions";
+import { signInAction, signOutAction } from "./actions";
+
+export const listenAuthState = () => {
+  return async (dispatch) => {
+    return auth.onAuthStateChanged((user) => {
+      if (user) {
+        const uid = user.uid;
+
+        db.collection("users")
+          .doc(uid)
+          .get()
+          .then((snapshot) => {
+            const data = snapshot.data();
+            dispatch(
+              signInAction({
+                isSignedIn: true,
+                uid: uid,
+                role: data.role,
+                username: data.username,
+              })
+            );
+          });
+      } else {
+        dispatch(push("/signin"));
+      }
+    });
+  };
+};
+
 export const signUp = (username, email, password, confirmPassword) => {
   return async (dispatch) => {
     if (
@@ -53,7 +81,6 @@ export const signIn = (email, password) => {
       const user = result.user;
       if (user) {
         const uid = user.uid;
-        const timestamp = FirebaseTimeStamp.now();
 
         db.collection("users")
           .doc(uid)
@@ -71,6 +98,15 @@ export const signIn = (email, password) => {
             dispatch(push("/"));
           });
       }
+    });
+  };
+};
+
+export const signOut = () => {
+  return async (dispatch) => {
+    return auth.signOut().then(() => {
+      dispatch(signOutAction());
+      dispatch(push("/signin"));
     });
   };
 };
