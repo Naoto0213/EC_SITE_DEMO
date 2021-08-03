@@ -110,3 +110,17 @@ export const signOut = () => {
     });
   };
 };
+
+export const resetPassword = (email) => {
+  return async (dispatch) => {
+    if (email === "") {
+      alert("必須項目があります");
+      return false;
+    } else {
+      auth.sendPasswordResetEmail(email).then(() => {
+        alert("パスワードリセットのメールを送信しました");
+        dispatch(push("/signin"));
+      });
+    }
+  };
+};

@@ -55,6 +55,11 @@ export default function Signin() {
             アカウント作成はこちら
           </Typography>
         </Link>
+        <Link to="/signin/Reset" className={classes.Link}>
+          <Typography variant="body1" color="initial" align="center">
+            パスワードを忘れた方はこちら
+          </Typography>
+        </Link>
       </div>
     </Container>
   );

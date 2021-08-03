@@ -35,6 +35,7 @@ const Home = () => {
         label="サインアウト"
         onClick={() => dispatch(signOut())}
       />
+      <CustomSimpleButton label="ガンプラを追加" to="/productsEdit" />
       <p>{uid}</p>
       <p>{username}</p>
       <p>{html_url}</p>
