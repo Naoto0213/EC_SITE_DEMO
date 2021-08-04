@@ -10,6 +10,8 @@ const CustomTextInput = ({
   value,
   type,
   onChange,
+  select,
+  children,
 }) => {
   return (
     <>
@@ -22,7 +24,10 @@ const CustomTextInput = ({
         required={required}
         rows={rows}
         type={type}
-      />
+        select={select}
+      >
+        {children}
+      </TextField>
     </>
   );
 };

@@ -2,8 +2,7 @@ import { useSelector } from "react-redux";
 import Router from "./router/Router";
 
 function App() {
-  const selector = useSelector((state) => state);
-  console.log(selector.users);
+  // const selector = useSelector((state) => state);
 
   return (
     <main className="App">
