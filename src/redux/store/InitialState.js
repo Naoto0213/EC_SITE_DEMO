@@ -6,7 +6,9 @@ const initialState = {
     username: "",
     store: "",
   },
-  prodacts: {},
+  products: {
+    list: [],
+  },
 };
 
 export default initialState;

@@ -5,6 +5,7 @@ import {
   applyMiddleware,
 } from "redux";
 import thunk from "redux-thunk";
+import { ProductsReducer } from "../product/reducers";
 import { UsersReducer } from "../users/reducers";
 
 export default function createStore(history) {
@@ -12,6 +13,7 @@ export default function createStore(history) {
     combineReducers({
       router: connectRouter(history),
       users: UsersReducer,
+      products: ProductsReducer,
     }),
     applyMiddleware(routerMiddleware(history), thunk)
   );

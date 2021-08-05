@@ -7,7 +7,7 @@ import {
   SELECT_STOCK_INPUT_ITEM,
   SELECT_TYPE_INPUT_ITEM,
 } from "../../config/selectInputItem";
-import { push } from "connected-react-router";
+import { saveProduct } from "../../redux/product/operation";
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -137,7 +137,9 @@ const Form = () => {
         <div className={classes.ButtonContainer}>
           <CustomSimpleButton
             label="追加する"
-            onClick={() => dispatch(push("/"))}
+            onClick={() =>
+              dispatch(saveProduct(name, price, type, detail, stock))
+            }
           />
         </div>
       </form>

@@ -15,10 +15,6 @@ export const SELECT_TYPE_INPUT_ITEM = [
     value: "PG",
     label: "PG",
   },
-  {
-    value: "フルメカニクス",
-    label: "フルメカニクス",
-  },
 ];
 
 export const SELECT_STOCK_INPUT_ITEM = [
@@ -29,6 +25,10 @@ export const SELECT_STOCK_INPUT_ITEM = [
   {
     value: "なし",
     label: "なし",
+  },
+  {
+    value: "未発売",
+    label: "未発売",
   },
   {
     value: "わからない",
