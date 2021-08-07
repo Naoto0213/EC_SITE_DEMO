@@ -8,6 +8,7 @@ import {
   SELECT_TYPE_INPUT_ITEM,
 } from "../../config/selectInputItem";
 import { saveProduct } from "../../redux/product/operation";
+import ImageArea from "./ImageArea";
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -41,6 +42,7 @@ const Form = () => {
   const [type, setType] = useState("");
   const [stock, setStock] = useState("");
   const [detail, setDetail] = useState("");
+  const [images, setImages] = useState("");
 
   const inputName = useCallback(
     (event) => {
@@ -80,6 +82,7 @@ const Form = () => {
   return (
     <>
       <form className={classes.form} noValidate>
+        <ImageArea images={images} setImages={setImages} />
         <div className={classes.TextInputMargin}>
           <CustomTextInput
             label={"名前"}
