@@ -1,7 +1,7 @@
 import { makeStyles } from "@material-ui/core";
+import { push } from "connected-react-router";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
 import CustomSimpleButton from "../components/ui/atoms/CustomSimpleButton";
 import { signOut } from "../redux/users/operation";
 
@@ -19,18 +19,37 @@ const useStyles = makeStyles((theme) => {
 const Home = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
-  const selector = useSelector((state) => state);
   return (
     <div className={classes.container}>
       <h2>ホーム</h2>
-      <CustomSimpleButton label="ホーム" to="/" />
-      <CustomSimpleButton label="アカウントを作成" to="/signup" />
-      <CustomSimpleButton label="ログイン" to="/signin" />
+      <CustomSimpleButton
+        label="ホーム"
+        onClick={() => {
+          dispatch(push("/"));
+        }}
+      />
+      <CustomSimpleButton
+        label="アカウントを作成"
+        onClick={() => {
+          dispatch(push("/signup"));
+        }}
+      />
+      <CustomSimpleButton
+        label="ログイン"
+        onClick={() => {
+          dispatch(push("/signin"));
+        }}
+      />
       <CustomSimpleButton
         label="サインアウト"
         onClick={() => dispatch(signOut())}
       />
-      <CustomSimpleButton label="ガンプラを追加" to="/product/edit" />
+      <CustomSimpleButton
+        label="ガンプラを追加"
+        onClick={() => {
+          dispatch(push("/product/edit"));
+        }}
+      />
     </div>
   );
 };

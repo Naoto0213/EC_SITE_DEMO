@@ -64,6 +64,7 @@ const ImageArea = (props) => {
     },
     [images]
   );
+
   return (
     <>
       <div className={classes.ImageArea}>

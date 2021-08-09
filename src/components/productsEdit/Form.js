@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { makeStyles, MenuItem } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import CustomSimpleButton from "../ui/atoms/CustomSimpleButton";
@@ -9,6 +9,7 @@ import {
 } from "../../config/selectInputItem";
 import { saveProduct } from "../../redux/product/operation";
 import ImageArea from "./ImageArea";
+import { db } from "../../firebase";
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -79,6 +80,32 @@ const Form = () => {
     [setDetail]
   );
 
+  let id = window.location.pathname.split("/product/edit")[1];
+
+  if (id !== "") {
+    id = id.split("/")[1];
+    console.log("After Spilit");
+  }
+
+  useEffect(() => {
+    if (id !== "") {
+      // firestoreのproductsからidをgetする
+      db.collection("products")
+        .doc(id)
+        .get()
+        .then((snapshot) => {
+          // dataの内容をsetStateに代入
+          const data = snapshot.data();
+          setImages(data.images);
+          setName(data.name);
+          setPrice(data.price);
+          setType(data.type);
+          setStock(data.stock);
+          setDetail(data.detail);
+        });
+    }
+  }, [id]);
+
   return (
     <>
       <form className={classes.form} noValidate>
@@ -99,8 +126,12 @@ const Form = () => {
             select={true}
             onChange={inputType}
           >
-            {SELECT_TYPE_INPUT_ITEM.map((option) => {
-              return <MenuItem value={option.value}>{option.label}</MenuItem>;
+            {SELECT_TYPE_INPUT_ITEM.map((option, index) => {
+              return (
+                <MenuItem value={option.value} key={index}>
+                  {option.label}
+                </MenuItem>
+              );
             })}
           </CustomTextInput>
         </div>
@@ -120,8 +151,12 @@ const Form = () => {
             select={true}
             onChange={inputStock}
           >
-            {SELECT_STOCK_INPUT_ITEM.map((option) => {
-              return <MenuItem value={option.value}>{option.label}</MenuItem>;
+            {SELECT_STOCK_INPUT_ITEM.map((option, index) => {
+              return (
+                <MenuItem value={option.value} key={index}>
+                  {option.label}
+                </MenuItem>
+              );
             })}
           </CustomTextInput>
         </div>
@@ -141,7 +176,9 @@ const Form = () => {
           <CustomSimpleButton
             label="追加する"
             onClick={() =>
-              dispatch(saveProduct(name, price, type, detail, stock))
+              dispatch(
+                saveProduct(id, images, name, price, type, stock, detail)
+              )
             }
           />
         </div>
