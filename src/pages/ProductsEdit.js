@@ -38,6 +38,13 @@ const useStyles = makeStyles((theme) => ({
 
 const ProductsEdit = () => {
   const classes = useStyles();
+  const id = window.location.pathname.split("/product/edit")[1];
+  console.log("before spiluit /", id);
+
+  if (id !== "") {
+    id = id.split("/")[1];
+    console.log("After Spilit");
+  }
 
   return (
     <Container component="main" maxWidth="xs">

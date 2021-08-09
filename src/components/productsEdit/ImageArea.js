@@ -20,8 +20,10 @@ const useStyle = makeStyles(() => ({
   },
 }));
 
-const ImageArea = ({ setImages, images }) => {
+const ImageArea = (props) => {
   const classes = useStyle();
+  const setImages = props.setImages;
+  const images = props.images;
 
   const uploadImage = useCallback(
     (event) => {
