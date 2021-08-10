@@ -11,6 +11,7 @@ import { UsersReducer } from "../users/reducers";
 export default function createStore(history) {
   return reduxCreateStore(
     combineReducers({
+      // Reducerの値をここに入力
       router: connectRouter(history),
       users: UsersReducer,
       products: ProductsReducer,

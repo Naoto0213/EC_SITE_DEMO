@@ -59,6 +59,7 @@ const ImageArea = (props) => {
       } else {
         const newImages = images.filter((image) => image.id !== id);
         setImages(newImages);
+        // deleteでfirestoreの情報を削除
         return storage.ref("images").child(id).delete();
       }
     },

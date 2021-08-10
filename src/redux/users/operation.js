@@ -4,7 +4,9 @@ import { signInAction, signOutAction } from "./actions";
 
 export const listenAuthState = () => {
   return async (dispatch) => {
+    // onAuthStateChangedで現在ログインしているのか判別
     return auth.onAuthStateChanged((user) => {
+      // もしユーザーがあるなら処理を実行
       if (user) {
         const uid = user.uid;
 
@@ -14,6 +16,7 @@ export const listenAuthState = () => {
           .then((snapshot) => {
             const data = snapshot.data();
             dispatch(
+              // Actionの値を変更
               signInAction({
                 isSignedIn: true,
                 uid: uid,
@@ -23,6 +26,7 @@ export const listenAuthState = () => {
             );
           });
       } else {
+        // そうじゃない場合はログインページに向かう
         dispatch(push("/signin"));
       }
     });
@@ -31,6 +35,7 @@ export const listenAuthState = () => {
 
 export const signUp = (username, email, password, confirmPassword) => {
   return async (dispatch) => {
+    // 全て入力しないと処理を実行させないようにする
     if (
       username === "" ||
       email === "" ||
@@ -40,10 +45,12 @@ export const signUp = (username, email, password, confirmPassword) => {
       alert("必須項目があります。");
       return false;
     }
+    // passwordが一致しないと登録させないようにする
     if (password !== confirmPassword) {
       alert("パスワードが一致しません。もう一度お試しください。");
       return false;
     }
+    // createUserWithEmailAndPasswordで引数にemailとパスワードを入れる
     return auth
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
@@ -57,6 +64,7 @@ export const signUp = (username, email, password, confirmPassword) => {
             username: username,
           };
 
+          // dbのuserにuserInicailDataを入力
           db.collection("users")
             .doc(uid)
             .set(userInicialData)
@@ -102,6 +110,7 @@ export const signIn = (email, password) => {
 export const signOut = () => {
   return async (dispatch) => {
     return auth.signOut().then(() => {
+      // actionでstateをsignoutにする
       dispatch(signOutAction());
       dispatch(push("/signin"));
     });
