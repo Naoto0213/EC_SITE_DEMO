@@ -25,31 +25,28 @@ const ImageArea = (props) => {
   const setImages = props.setImages;
   const images = props.images;
 
-  const uploadImage = useCallback(
-    (event) => {
-      const file = event.target.files;
-      let blob = new Blob(file, { type: "image/jpeg" });
+  const uploadImage = (event) => {
+    const file = event.target.files;
+    let blob = new Blob(file, { type: "image/jpeg" });
 
-      // ランダムな16文字のファイル名を生成
-      const S = "qwertyuioplkjhgfdsazxcvbnmAQWERTYUIOPLKJHGFDSAZXCVBNM";
-      const N = 16;
-      const fileName = Array.from(crypto.getRandomValues(new Uint32Array(N)))
-        .map((n) => S[n % S.length])
-        .join("");
+    // ランダムな16文字のファイル名を生成
+    const S = "qwertyuioplkjhgfdsazxcvbnmAQWERTYUIOPLKJHGFDSAZXCVBNM";
+    const N = 16;
+    const fileName = Array.from(crypto.getRandomValues(new Uint32Array(N)))
+      .map((n) => S[n % S.length])
+      .join("");
 
-      // firebaseに画像ファイルを送信する
-      const uploadRef = storage.ref("images").child(fileName);
-      const uploadTask = uploadRef.put(blob);
+    // firebaseに画像ファイルを送信する
+    const uploadRef = storage.ref("images").child(fileName);
+    const uploadTask = uploadRef.put(blob);
 
-      uploadTask.then(() => {
-        uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-          const newImage = { id: fileName, path: downloadURL };
-          setImages((prevState) => [...prevState, newImage]);
-        });
+    uploadTask.then(() => {
+      uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+        const newImage = { id: fileName, path: downloadURL };
+        setImages((prevState) => [...prevState, newImage]);
       });
-    },
-    [setImages]
-  );
+    });
+  };
 
   const deleteImage = useCallback(
     async (id) => {
@@ -63,7 +60,7 @@ const ImageArea = (props) => {
         return storage.ref("images").child(id).delete();
       }
     },
-    [images]
+    [images, setImages]
   );
 
   return (
@@ -85,6 +82,7 @@ const ImageArea = (props) => {
         </IconButton>
       </div>
       <div className={classes.imageContainer}>
+        {/* imagesの数が1以上なら実行する */}
         {images.length > 0 &&
           images.map((image) => (
             <ImagePrevew

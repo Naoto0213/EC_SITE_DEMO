@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import CustomSimpleButton from "../ui/atoms/CustomSimpleButton";
 import CustomTextInput from "../ui/atoms/CustomTextInput";
 import {
+  SELECT_SERIES_INPUT_ITEM,
   SELECT_STOCK_INPUT_ITEM,
   SELECT_TYPE_INPUT_ITEM,
 } from "../../config/selectInputItem";
@@ -39,6 +40,7 @@ const Form = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const [name, setName] = useState("");
+  const [series, setSeries] = useState("");
   const [price, setPrice] = useState("");
   const [type, setType] = useState("");
   const [stock, setStock] = useState("");
@@ -50,6 +52,13 @@ const Form = () => {
       setName(event.target.value);
     },
     [setName]
+  );
+
+  const inputSeries = useCallback(
+    (event) => {
+      setSeries(event.target.value);
+    },
+    [setSeries]
   );
 
   const inputPrice = useCallback(
@@ -84,7 +93,6 @@ const Form = () => {
 
   if (id !== "") {
     id = id.split("/")[1];
-    console.log("After Spilit");
   }
 
   useEffect(() => {
@@ -97,6 +105,7 @@ const Form = () => {
           // dataの内容をsetStateに代入
           const data = snapshot.data();
           setImages(data.images);
+          setSeries(data.series);
           setName(data.name);
           setPrice(data.price);
           setType(data.type);
@@ -117,6 +126,23 @@ const Form = () => {
             value={name}
             onChange={inputName}
           />
+        </div>
+        <div className={classes.TextInputMargin}>
+          <CustomTextInput
+            label={"シリーズ"}
+            fullWidth={true}
+            value={type}
+            select={true}
+            onChange={inputSeries}
+          >
+            {SELECT_SERIES_INPUT_ITEM.map((option, index) => {
+              return (
+                <MenuItem value={option.value} key={index}>
+                  {option.label}
+                </MenuItem>
+              );
+            })}
+          </CustomTextInput>
         </div>
         <div className={classes.TextInputMargin}>
           <CustomTextInput
@@ -177,7 +203,16 @@ const Form = () => {
             label="追加する"
             onClick={() =>
               dispatch(
-                saveProduct(id, images, name, price, type, stock, detail)
+                saveProduct(
+                  id,
+                  images,
+                  name,
+                  series,
+                  price,
+                  type,
+                  stock,
+                  detail
+                )
               )
             }
           />

@@ -4,6 +4,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import CustomSimpleButton from "../components/ui/atoms/CustomSimpleButton";
 import { signOut } from "../redux/users/operation";
+import ProductList from "../components/productList/ProductList";
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -50,6 +51,8 @@ const Home = () => {
           dispatch(push("/product/edit"));
         }}
       />
+
+      <ProductList />
     </div>
   );
 };

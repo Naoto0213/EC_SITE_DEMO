@@ -1,25 +1,23 @@
 import { push } from "connected-react-router";
 import { db } from "../../firebase";
-import { fetchProductsAction } from "./actions";
+import { deleteProductAction, fetchProductsAction } from "./actions";
 
+// firestoreのproductsを記述
 const productsRef = db.collection("products");
 
-export const fetchProduct = () => {
+export const fetchProducts = () => {
   return async (dispatch) => {
     // firestoreのproductの中を"orderBy"メソッドで並び替えをする
-    productsRef
-      .orderBy("updated_at", "desc")
-      .get()
-      .then((snapshots) => {
-        // 空の配列を作成
-        const productList = [];
-        snapshots.forEach((snapshot) => {
-          const product = snapshot.data();
-          // productのデータを送信
-          productList.push(product);
-        });
-        dispatch(fetchProductsAction(productList));
+    productsRef.get().then((snapshots) => {
+      // 空の配列を作成
+      const productList = [];
+      snapshots.forEach((snapshot) => {
+        const product = snapshot.data();
+        // productのデータを送信
+        productList.push(product);
       });
+      dispatch(fetchProductsAction(productList));
+    });
   };
 };
 
@@ -49,7 +47,7 @@ export const saveProduct = (id, images, name, price, type, stock, detail) => {
     // product/editの時だけこの処理を回す
     if (id === "") {
       const ref = productsRef.doc();
-      const id = ref.id;
+      id = ref.id;
       data.id = id;
     }
 
@@ -59,6 +57,23 @@ export const saveProduct = (id, images, name, price, type, stock, detail) => {
       .set(data, { merge: true })
       .then(() => {
         dispatch(push("/"));
+      });
+  };
+};
+
+export const deleteProduct = (id) => {
+  return async (dispatch, getState) => {
+    // productの中の名前(id)をdelete関数で削除して、stateを初期に戻す
+    productsRef
+      .doc(id)
+      .delete()
+      .then(() => {
+        const prevProducts = getState().products.list;
+        const nextProducts = prevProducts.filter(
+          (product) => product.id !== id
+        );
+        dispatch(deleteProductAction(nextProducts));
+        window.location.reload();
       });
   };
 };

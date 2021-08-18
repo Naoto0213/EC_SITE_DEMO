@@ -4,10 +4,10 @@ import ClearIcon from "@material-ui/icons/Clear";
 const useStyles = makeStyles(() => ({
   container: {
     display: "flex",
+    marginTop: "20px",
   },
   image: {
-    width: "300px",
-    height: "300px",
+    maxWidth: "300px",
   },
   clearButton: {
     textAlign: "top",

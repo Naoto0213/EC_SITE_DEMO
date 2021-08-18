@@ -12,13 +12,13 @@ const history = History.createBrowserHistory();
 export const store = createStore(history);
 
 ReactDOM.render(
-  <Provider store={store}>
-    <ConnectedRouter history={history}>
-      <React.StrictMode>
+  <React.StrictMode>
+    <Provider store={store}>
+      <ConnectedRouter history={history}>
         <App />
-      </React.StrictMode>
-    </ConnectedRouter>
-  </Provider>,
+      </ConnectedRouter>
+    </Provider>
+  </React.StrictMode>,
 
   document.getElementById("root")
 );
