@@ -9,10 +9,15 @@ import { Grid } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
   container: {
     display: "flex",
-    justifyContent: "center",
-    padding: "0px 160px",
+    justifyContent: "flex-start",
+    padding: "0px 130px",
     [theme.breakpoints.down("md")]: {
-      padding: "0px 90px",
+      padding: "0px 40px",
+      margin: "0 auto",
+    },
+    [theme.breakpoints.down("xs")]: {
+      justifyContent: "center",
+      padding: "0px 0px",
     },
   },
 }));
@@ -22,6 +27,7 @@ const ProductList = () => {
   const selector = useSelector((state) => state);
   const products = getProducts(selector);
   const classes = useStyles();
+
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
@@ -31,7 +37,7 @@ const ProductList = () => {
       <Grid className={classes.container} container>
         {products.map((product, i) => {
           return (
-            <Grid item>
+            <Grid item lg={3} md={4} sm={6}>
               <ProductCard product={product} />
             </Grid>
           );

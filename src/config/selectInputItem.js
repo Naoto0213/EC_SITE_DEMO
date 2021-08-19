@@ -54,6 +54,10 @@ export const SELECT_SERIES_INPUT_ITEM = [
     label: "機動戦士ガンダム 逆襲のシャア",
   },
   {
+    value: "機動戦士ガンダム 閃光のハサウェイ",
+    label: "機動戦士ガンダム 閃光のハサウェイ",
+  },
+  {
     value: "機動戦士ガンダム0080 ポケットの中の戦争",
     label: "機動戦士ガンダム0080 ポケットの中の戦争",
   },
@@ -108,5 +112,13 @@ export const SELECT_SERIES_INPUT_ITEM = [
   {
     value: "機動戦士ガンダム サンダーボルト",
     label: "機動戦士ガンダム サンダーボルト",
+  },
+  {
+    value: "エヴァンゲリオン",
+    label: "エヴァンゲリオン",
+  },
+  {
+    value: "その他",
+    label: "その他",
   },
 ];

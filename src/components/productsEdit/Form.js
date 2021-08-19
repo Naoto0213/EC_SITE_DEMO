@@ -131,7 +131,7 @@ const Form = () => {
           <CustomTextInput
             label={"シリーズ"}
             fullWidth={true}
-            value={type}
+            value={series}
             select={true}
             onChange={inputSeries}
           >
@@ -163,15 +163,16 @@ const Form = () => {
         </div>
         <div className={classes.TextInputMargin}>
           <CustomTextInput
-            label={"値段"}
+            label={"定価価格"}
             fullWidth={true}
             value={price}
             onChange={inputPrice}
+            type="number"
           />
         </div>
         <div className={classes.TextInputMargin}>
           <CustomTextInput
-            label={"在庫"}
+            label={"在庫(Amazon)"}
             fullWidth={true}
             value={stock}
             select={true}
@@ -194,7 +195,7 @@ const Form = () => {
             onChange={inputDetail}
             multiline={true}
             required={true}
-            rows={3}
+            rows={9}
             select={false}
           />
         </div>

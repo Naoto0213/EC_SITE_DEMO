@@ -21,11 +21,21 @@ export const fetchProducts = () => {
   };
 };
 
-export const saveProduct = (id, images, name, price, type, stock, detail) => {
+export const saveProduct = (
+  id,
+  images,
+  name,
+  series,
+  price,
+  type,
+  stock,
+  detail
+) => {
   return async (dispatch) => {
     if (
       images === "" ||
       name === "" ||
+      series === "" ||
       price === "" ||
       type === "" ||
       stock === "" ||
@@ -38,6 +48,7 @@ export const saveProduct = (id, images, name, price, type, stock, detail) => {
     const data = {
       images: images,
       name: name,
+      series: series,
       price: price,
       type: type,
       stock: stock,
