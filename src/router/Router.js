@@ -6,6 +6,7 @@ import ProductsEdit from "../pages/ProductsEdit";
 import SignUp from "../pages/SignUp";
 import Reset from "../pages/Reset";
 import Signin from "../pages/Signin";
+import ProductsDetail from "../pages/ProductsDetail";
 
 const Router = () => {
   return (
@@ -16,6 +17,7 @@ const Router = () => {
       <Auth>
         <Route exact path="(/)?" component={Home} />
         <Route path={"/product/edit(/:id)?"} component={ProductsEdit} />
+        <Route path={"/product/detail/:id"} component={ProductsDetail} />
       </Auth>
     </Switch>
   );

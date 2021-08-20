@@ -10,9 +10,9 @@ const useStyles = makeStyles((theme) => ({
   container: {
     display: "flex",
     justifyContent: "flex-start",
-    padding: "0px 130px",
+    padding: "0px 20%",
     [theme.breakpoints.down("md")]: {
-      padding: "0px 40px",
+      padding: "0px 15%",
       margin: "0 auto",
     },
     [theme.breakpoints.down("xs")]: {
@@ -37,7 +37,7 @@ const ProductList = () => {
       <Grid className={classes.container} container>
         {products.map((product, i) => {
           return (
-            <Grid item lg={3} md={4} sm={6}>
+            <Grid item lg={3} md={4} sm={6} key={i}>
               <ProductCard product={product} />
             </Grid>
           );

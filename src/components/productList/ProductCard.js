@@ -13,16 +13,18 @@ import { deleteProduct } from "../../redux/product/operation";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    minWidth: "245px",
-    margin: "8px 8px",
+    margin: "16px 8px",
     boxShadow:
       "rgba(50, 50, 93, 0.25) 0 13 27 -5, rgba(0, 0, 0, 0.3) 0 8 16 -8",
     [theme.breakpoints.down("xs")]: {
-      minWidth: "330px",
+      minWidth: "290px",
     },
   },
   media: {
-    height: "425px",
+    minHeight: "300px",
+    [theme.breakpoints.down("md")]: {
+      height: "255px",
+    },
     [theme.breakpoints.down("xs")]: {
       height: "305px",
     },
@@ -30,7 +32,6 @@ const useStyles = makeStyles((theme) => ({
   typoBold: {
     marginTop: "10px",
     fontWeight: "bold",
-    maxWidth: "210px",
   },
 }));
 
@@ -38,11 +39,14 @@ const ProductCard = (props) => {
   const product = props.product;
   const classes = useStyles();
   const dispatch = useDispatch();
-
   return (
     <>
       <Card className={classes.root}>
-        <CardActionArea>
+        <CardActionArea
+          onClick={() => {
+            dispatch(push(`product/detail/${product.id}`));
+          }}
+        >
           <CardMedia
             className={classes.media}
             image={product.images[0].path}

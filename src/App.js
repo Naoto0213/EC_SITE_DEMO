@@ -1,10 +1,19 @@
+import { Header } from "./components/common/Header";
 import Router from "./router/Router";
+import { makeStyles } from "@material-ui/core/styles";
+import "./swiper.css";
+
+const useStyles = makeStyles((theme) => ({
+  App: {
+    padding: "64px 0px",
+  },
+}));
 
 function App() {
-  // const selector = useSelector((state) => state);
-
+  const classes = useStyles();
   return (
-    <main className="App">
+    <main className={classes.App}>
+      <Header />
       <Router />
     </main>
   );

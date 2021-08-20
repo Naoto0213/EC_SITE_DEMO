@@ -44,6 +44,7 @@ const Form = () => {
   const [price, setPrice] = useState("");
   const [type, setType] = useState("");
   const [stock, setStock] = useState("");
+  const [amazon, setAmazon] = useState("");
   const [detail, setDetail] = useState("");
   const [images, setImages] = useState("");
 
@@ -82,6 +83,13 @@ const Form = () => {
     [setStock]
   );
 
+  const inputAmazon = useCallback(
+    (event) => {
+      setAmazon(event.target.value);
+    },
+    [setAmazon]
+  );
+
   const inputDetail = useCallback(
     (event) => {
       setDetail(event.target.value);
@@ -110,6 +118,7 @@ const Form = () => {
           setPrice(data.price);
           setType(data.type);
           setStock(data.stock);
+          setAmazon(data.amazon);
           setDetail(data.detail);
         });
     }
@@ -189,12 +198,21 @@ const Form = () => {
         </div>
         <div className={classes.TextInputMargin}>
           <CustomTextInput
+            label={"Amazonリンク"}
+            fullWidth={true}
+            value={amazon}
+            onChange={inputAmazon}
+            multiline={false}
+            select={false}
+          />
+        </div>
+        <div className={classes.TextInputMargin}>
+          <CustomTextInput
             label={"詳細"}
             fullWidth={true}
             value={detail}
             onChange={inputDetail}
             multiline={true}
-            required={true}
             rows={9}
             select={false}
           />
@@ -212,6 +230,7 @@ const Form = () => {
                   price,
                   type,
                   stock,
+                  amazon,
                   detail
                 )
               )

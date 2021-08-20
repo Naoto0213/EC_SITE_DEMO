@@ -8,16 +8,19 @@ const productsRef = db.collection("products");
 export const fetchProducts = () => {
   return async (dispatch) => {
     // firestoreのproductの中を"orderBy"メソッドで並び替えをする
-    productsRef.get().then((snapshots) => {
-      // 空の配列を作成
-      const productList = [];
-      snapshots.forEach((snapshot) => {
-        const product = snapshot.data();
-        // productのデータを送信
-        productList.push(product);
+    productsRef
+      .orderBy("series")
+      .get()
+      .then((snapshots) => {
+        // 空の配列を作成
+        const productList = [];
+        snapshots.forEach((snapshot) => {
+          const product = snapshot.data();
+          // productのデータを送信
+          productList.push(product);
+        });
+        dispatch(fetchProductsAction(productList));
       });
-      dispatch(fetchProductsAction(productList));
-    });
   };
 };
 
@@ -29,6 +32,7 @@ export const saveProduct = (
   price,
   type,
   stock,
+  amazon,
   detail
 ) => {
   return async (dispatch) => {
@@ -39,6 +43,7 @@ export const saveProduct = (
       price === "" ||
       type === "" ||
       stock === "" ||
+      amazon === "" ||
       detail === ""
     ) {
       alert("全て入力してください");
@@ -52,6 +57,7 @@ export const saveProduct = (
       price: price,
       type: type,
       stock: stock,
+      amazon: amazon,
       detail: detail,
     };
 
