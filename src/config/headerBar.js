@@ -10,8 +10,8 @@ export const HEADER_BAR = [
     icon: <HomeIcon />,
   },
   {
-    label: "マイページ",
-    link: "/Profile",
+    label: "投稿した作品",
+    link: "/users/create",
     icon: <AccountCircleIcon />,
   },
   {

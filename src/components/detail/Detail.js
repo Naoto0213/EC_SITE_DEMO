@@ -3,6 +3,10 @@ import React from "react";
 import { DETAIL_LIST } from "../../config/detailList";
 import BorderTitle from "../ui/atoms/BorderTitle";
 import Slider from "../ui/molecules/Slider";
+import Button from "@material-ui/core/Button";
+import { push } from "connected-react-router";
+import { useDispatch } from "react-redux";
+import CustomSimpleButton from "../ui/atoms/CustomSimpleButton";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,7 +22,10 @@ const useStyles = makeStyles((theme) => ({
       alignItems: "center",
     },
   },
-
+  buttonContainer: {
+    display: "flex",
+    gap: "0px 16px",
+  },
   detailContainer: {
     display: "flex",
 
@@ -59,6 +66,7 @@ const Detail = (props) => {
   const classes = useStyles();
   const product = props.product;
   const images = product.images;
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -83,6 +91,18 @@ const Detail = (props) => {
                 <span className={classes.detailSpanText}>なし</span>
               )}
             </Typography>
+            <div className={classes.buttonContainer}>
+              <Button
+                size="small"
+                variant="outlined"
+                color="primary"
+                onClick={() => {
+                  dispatch(push(`/product/edit/${product.id}`));
+                }}
+              >
+                編集
+              </Button>
+            </div>
           </div>
         </div>
         <BorderTitle label="詳細" />
@@ -92,6 +112,7 @@ const Detail = (props) => {
           </Typography>
         </div>
         <BorderTitle label="作品一覧" />
+        <CustomSimpleButton label={"作品を登録"} />
       </div>
     </>
   );
